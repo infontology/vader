@@ -40,10 +40,12 @@ def get_chart(column, day, forecast_array): #day = 0-9
     hour_column = np.where(forecast_array[0]=='hour')[0] #Hitta timkolumn
     hours_that_day = np.where(forecast_array[:,day_column]==str(day))[0] #Ta fram alla rader som gäller den aktuella dagen
     chart_data = forecast_array[hours_that_day,[hour_column,chart_col]] #Ta fram timmar och värden för dessa timmar
+    values = [float(item) for item in chart_data[1]]
     #Skapa diagrammet
     fig = Figure()
     axis = fig.add_subplot(1, 1, 1)
-    axis.plot(list(chart_data[0]),list(chart_data[1]))
+    axis.plot(list(chart_data[0]),list(values))
+    #print(list(chart_data[0]),list(values))
     canvas = FigureCanvas(fig)
     output = io.BytesIO()
     canvas.print_png(output)
